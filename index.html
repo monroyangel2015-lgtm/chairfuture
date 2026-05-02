@@ -25,27 +25,34 @@ font-size:28px;
 cursor:pointer;
 }
 
-/* MENU PEQUEÑO */
+/* MENU (ARREGLADO) */
 #menu{
 position:fixed;
 top:70px;
 right:20px;
 width:180px;
-background:#020617;
+background:rgba(2,6,23,0.95);
 border-radius:15px;
 padding:15px;
 display:none;
 flex-direction:column;
-box-shadow:0 0 15px rgba(0,0,0,0.5);
+box-shadow:0 10px 30px rgba(0,0,0,0.6);
+z-index:9999;
+backdrop-filter:blur(10px);
 }
 
 #menu a{
 color:white;
 text-decoration:none;
 margin:10px 0;
+font-size:16px;
+transition:0.2s;
 }
 
-#menu a:hover{color:#38bdf8;}
+#menu a:hover{
+color:#38bdf8;
+padding-left:5px;
+}
 
 /* HERO */
 .hero{
@@ -66,7 +73,9 @@ background:rgba(0,0,0,0.6);
 .btn{
 padding:10px 20px;background:#38bdf8;border:none;
 border-radius:20px;cursor:pointer;
+transition:.3s;
 }
+.btn:hover{transform:scale(1.1);}
 
 /* SECCIONES */
 section{padding:100px 30px;text-align:center;}
@@ -78,8 +87,10 @@ gap:20px;margin-top:30px;
 
 .card{
 background:#1e293b;padding:20px;border-radius:15px;
-cursor:pointer;
+cursor:pointer;transition:.3s;
 }
+
+.card:hover{transform:translateY(-10px);}
 
 .card img{
 width:100%;height:160px;object-fit:cover;border-radius:10px;
@@ -93,7 +104,7 @@ font-size:14px;
 opacity:0.85;
 }
 
-/* INPUTS PEQUEÑOS */
+/* FORM */
 form{
 max-width:350px;
 margin:auto;
@@ -143,6 +154,7 @@ margin-top:40px;
 <div class="menu-btn" onclick="toggleMenu()">☰</div>
 </header>
 
+<!-- MENU -->
 <div id="menu">
 <a href="#info" onclick="toggleMenu()">Info</a>
 <a href="#funciona" onclick="toggleMenu()">Funciona</a>
@@ -163,12 +175,10 @@ margin-top:40px;
 <div class="cards">
 
 <div class="card" onclick="toggle(this)">
-<img src="https://images.unsplash.com/photo-1581091215367-59ab6b65a7a5">
+<img src="https://images.unsplash.com/photo-1579154204601-01588f351e67">
 <h3>Sensores biométricos</h3>
 <div class="extra">
-Integra sensores avanzados capaces de medir ritmo cardíaco, microvariaciones de presión, temperatura corporal y patrones de movimiento. 
-Estos datos permiten detectar cambios físicos sutiles relacionados con estados emocionales como estrés, ansiedad o relajación, 
-proporcionando un monitoreo constante y preciso sin intervención del usuario.
+Integra sensores capaces de medir ritmo cardíaco, presión y temperatura corporal. Detecta cambios físicos sutiles relacionados con emociones como estrés o calma.
 </div>
 </div>
 
@@ -176,9 +186,7 @@ proporcionando un monitoreo constante y preciso sin intervención del usuario.
 <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c">
 <h3>Inteligencia Artificial</h3>
 <div class="extra">
-Utiliza modelos de inteligencia artificial entrenados con grandes volúmenes de datos biométricos para identificar patrones emocionales. 
-El sistema aprende y mejora con el tiempo, adaptándose a cada usuario para ofrecer interpretaciones más precisas, 
-reduciendo errores y aumentando la confiabilidad en contextos médicos y de cuidado.
+Analiza patrones mediante algoritmos que interpretan emociones y mejoran con el uso continuo.
 </div>
 </div>
 
@@ -186,8 +194,7 @@ reduciendo errores y aumentando la confiabilidad en contextos médicos y de cuid
 <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
 <h3>App conectada</h3>
 <div class="extra">
-Los datos procesados se sincronizan en tiempo real con una aplicación móvil que permite visualizar el estado emocional del usuario. 
-Incluye alertas automáticas, historial de emociones y comunicación directa con cuidadores o profesionales de la salud.
+Permite monitoreo en tiempo real desde un celular o dispositivo externo.
 </div>
 </div>
 
@@ -200,30 +207,23 @@ Incluye alertas automáticas, historial de emociones y comunicación directa con
 <div class="cards">
 
 <div class="card" onclick="toggle(this)">
-<h3>Captura de datos</h3>
+<h3>Captura</h3>
 <div class="extra">
-Los sensores registran continuamente variables fisiológicas del usuario sin interrumpir su actividad cotidiana.
+Recolecta datos físicos automáticamente.
 </div>
 </div>
 
 <div class="card" onclick="toggle(this)">
-<h3>Procesamiento inteligente</h3>
+<h3>Análisis</h3>
 <div class="extra">
-Los datos son enviados a un sistema interno que analiza patrones mediante algoritmos avanzados.
+Procesa la información con inteligencia artificial.
 </div>
 </div>
 
 <div class="card" onclick="toggle(this)">
-<h3>Interpretación emocional</h3>
+<h3>Resultado</h3>
 <div class="extra">
-Se traducen los datos en emociones como calma, estrés o ansiedad con base en modelos predictivos.
-</div>
-</div>
-
-<div class="card" onclick="toggle(this)">
-<h3>Visualización y alertas</h3>
-<div class="extra">
-Los resultados se muestran en una interfaz clara y pueden generar alertas en tiempo real para cuidadores.
+Traduce datos en emociones comprensibles.
 </div>
 </div>
 
@@ -253,8 +253,9 @@ Los resultados se muestran en una interfaz clara y pueden generar alertas en tie
 </footer>
 
 <script>
+
 function toggleMenu(){
-let menu=document.getElementById("menu");
+let menu = document.getElementById("menu");
 menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
 }
 
@@ -273,6 +274,7 @@ if(e.isIntersecting){e.target.classList.add("show");}
 });
 });
 document.querySelectorAll(".hidden").forEach(el=>observer.observe(el));
+
 </script>
 
 </body>
